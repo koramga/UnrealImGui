@@ -96,6 +96,14 @@ public class ImGui : ModuleRules
 		List<string> PrivateDefinitions = Definitions;
 #endif
 
+		string PlatformName = Target.Platform.ToString();
+		
+		//XSX and XB1 need to this command. (for GDK)
+		if (PlatformName is "XSX" or "XB1")
+		{
+			PublicDefinitions.Add("IMGUI_DISABLE_WIN32_FUNCTIONS=1");
+		}
+
 		PrivateDefinitions.Add(string.Format("RUNTIME_LOADER_ENABLED={0}", bEnableRuntimeLoader ? 1 : 0));
 	}
 }
