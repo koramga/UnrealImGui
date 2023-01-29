@@ -12,10 +12,8 @@
 #include <Misc/Paths.h>
 
 
-//static constexpr float DEFAULT_CANVAS_WIDTH = 3840.f;
-static constexpr float DEFAULT_CANVAS_WIDTH = 500.f;
-//static constexpr float DEFAULT_CANVAS_HEIGHT = 2160.f;
-static constexpr float DEFAULT_CANVAS_HEIGHT = 500.f;
+static constexpr float DEFAULT_CANVAS_WIDTH = 3840.f;
+static constexpr float DEFAULT_CANVAS_HEIGHT = 2160.f;
 
 #define IMGUI_ENABLE_DOCKING
 
