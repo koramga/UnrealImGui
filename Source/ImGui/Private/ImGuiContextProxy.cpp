@@ -12,9 +12,12 @@
 #include <Misc/Paths.h>
 
 
-static constexpr float DEFAULT_CANVAS_WIDTH = 3840.f;
-static constexpr float DEFAULT_CANVAS_HEIGHT = 2160.f;
+//static constexpr float DEFAULT_CANVAS_WIDTH = 3840.f;
+static constexpr float DEFAULT_CANVAS_WIDTH = 500.f;
+//static constexpr float DEFAULT_CANVAS_HEIGHT = 2160.f;
+static constexpr float DEFAULT_CANVAS_HEIGHT = 500.f;
 
+#define IMGUI_ENABLE_DOCKING
 
 namespace
 {
@@ -93,6 +96,12 @@ FImGuiContextProxy::FImGuiContextProxy(const FString& InName, int32 InContextInd
 	// Start with the default canvas size.
 	ResetDisplaySize();
 	IO.DisplaySize = {(float)DisplaySize.X, (float)DisplaySize.Y};
+
+#ifdef IMGUI_ENABLE_DOCKING
+
+	IO.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+
+#endif
 
 	// Set the initial DPI scale.
 	SetDPIScale(InDPIScale);
@@ -212,8 +221,14 @@ void FImGuiContextProxy::BeginFrame(float DeltaTime)
 		InputState.ClearUpdateState();
 
 		IO.DisplaySize = { (float)DisplaySize.X, (float)DisplaySize.Y };
-
+		
 		ImGui::NewFrame();
+		
+#ifdef IMGUI_ENABLE_DOCKING
+
+		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
+
+#endif
 
 		bIsFrameStarted = true;
 		bIsDrawEarlyDebugCalled = false;
